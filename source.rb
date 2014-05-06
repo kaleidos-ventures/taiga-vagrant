@@ -1,6 +1,7 @@
 require 'erb'
 
 def vagrant_shell_scripts_configure(shell, scripts_path, provision_script)
+  shell.privileged = false
   renderer = ERB.new(<<-eo
                     <%
                       def source(filename)

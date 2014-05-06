@@ -71,7 +71,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # View the documentation for the provider you're using for more
   # information on available options.
 
-  # Enable provisioning with shell scripts
+  # Provisioning
+  config.vm.provision "file" do |file|
+    file.source = "config/virtualenvwrapper-conf"
+    file.destination = ".virtualenvwrapper-conf"
+  end
+
   config.vm.provision "shell" do |shell|
     vagrant_shell_scripts_configure(shell, File.join(File.dirname(__FILE__), "scripts"), "provision.sh")
   end

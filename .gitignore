@@ -10,3 +10,6 @@
 # except those beginning by an underscore
 !scripts
 !scripts/[^_]*
+
+!config
+!config/*

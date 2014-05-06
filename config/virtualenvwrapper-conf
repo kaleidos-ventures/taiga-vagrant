@@ -1,0 +1,10 @@
+# virtualenvwrapper-conf
+
+pythonversion=$(python3 -V | cut -d' ' -f2 | cut -d'.' -f1,2)
+
+export PYTHONPATH="~/.local/lib/$pythonversion/site-packages"
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON="$(which python3)"
+export PATH=~/.local/bin:$PATH
+
+source ~/.local/bin/virtualenvwrapper.sh
