@@ -9,7 +9,10 @@ settings = {
     host: "./data",
     guest: "/home/vagrant/data"
   },
-  forwarded_ports: [{host: 9000, guest: 9000}, {host: 9001, guest: 9001}]
+  forwarded_ports: [{host: 8000, guest: 8000}, {host: 9001, guest: 9001}],
+  provision_env: {
+    shell_profile: ".bash_profile"
+  }
 }
 
 # Look for a Vagrantfile.local to load
@@ -78,6 +81,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell" do |shell|
-    vagrant_shell_scripts_configure(shell, File.join(File.dirname(__FILE__), "scripts"), "provision.sh")
+    vagrant_shell_scripts_configure(
+      shell,
+      File.join(File.dirname(__FILE__), "scripts"),
+      "provision.sh",
+      settings[:provision_env]
+    )
   end
 end
