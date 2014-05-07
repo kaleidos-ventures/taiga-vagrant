@@ -14,7 +14,7 @@ light_gray='\e[0;37m'
 
 function apt-install {
     for pkg in $@; do
-        echo -e "${cyan}Installing package $pkg..."
+        echo -e "${cyan}[APT-GET] Installing package $pkg..."
         sudo apt-get install -yq $pkg
     done
 }
