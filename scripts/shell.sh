@@ -1,4 +1,6 @@
 # shell.sh
 
+shellrc=<%= env[:shell_profile] %>
 conf="source .virtualenvwrapper-conf"
-grep -q "$conf" "$shellrc" || echo "$conf" >> "$shellrc"
+touch $shellrc
+grep -q "$conf" $shellrc || echo "$conf" >> $shellrc
