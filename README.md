@@ -60,6 +60,14 @@ settings[:forwarded_ports] = [{host: ..., guest: ...}, ...]
   include them in a `scripts/_custom.sh` using the same erb-syntax,
   useful if you want some personal configuration in your instance.
 
+## Provision environment ##
+
+When writing a provisioner script you can access a global *env*
+variable that may contain useful information for you to use.  For
+example, the `shell.sh` provisioner uses the `env[:shell_profile]`
+variable to know what shell configuration file the user of the guest
+machine is using (.bashrc, .bash_profile, .zshrc, ...).
+
 [vbox]: https://www.virtualbox.org/wiki/Downloads "VirtualBox downloads"
 [vmw]: https://www.virtualbox.org/wiki/Downloads "VMware website"
 [vagrant]: http://downloads.vagrantup.com/ "Vagrant downloads"
