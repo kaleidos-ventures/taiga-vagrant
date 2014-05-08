@@ -3,7 +3,7 @@
 ## Installation
 
 ```sh
-curl https://github.com/taigaio/taiga-vagrant/blob/master/install.sh | sh
+curl https://raw.githubusercontent.com/taigaio/taiga-vagrant/master/install.sh | sh
 ```
 
 ## Usage
