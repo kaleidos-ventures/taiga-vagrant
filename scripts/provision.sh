@@ -15,9 +15,8 @@
 <%= source 'tmux.sh' %>
 <%= source 'node.sh' %>
 <%= source 'repos.sh' %>
-<%= source 'shell.sh' %>
 
 <%= source 'taiga.sh' %>
 
 # Custom provisioning for your installation
-<%= source '_custom.sh' %>
+<%= source 'custom/provision.sh' %>

@@ -9,7 +9,7 @@
 # Do not ignore provisioning scripts
 # except those beginning by an underscore
 !scripts
-!scripts/[^_]*
+!scripts/*
 
 !config
 !config/*

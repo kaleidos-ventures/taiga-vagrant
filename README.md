@@ -44,7 +44,7 @@ provisioning.
 
 In case of problems run: `vagrant destroy && vagrant up`.
 
-## Dependencies
+## Dependencies ##
 
 1. [VirtualBox][vbox]
 2. [Vagrant][vagrant]
@@ -52,7 +52,7 @@ In case of problems run: `vagrant destroy && vagrant up`.
 **Note** if you're using VMware you need the vagrant
 [vmware plugin](http://www.vagrantup.com/vmware)
 
-## Terminology
+## Terminology ##
 
 * **Guest Machine**: The virtual machine.
 * **Host Machine**: Your computer.
@@ -81,18 +81,44 @@ settings[:forwarded_ports] = [{host: ..., guest: ...}, ...]
   using the erb-syntax `<%= source 'my-script.sh' %>` and you must
   position it in the appropiate place if you're depending on other
   scripts.
-* Scripts beginning by an underscore `_` are ignored by git so they
-  don't get committed to the repo, but! they're still executed if you
-  include them in a `scripts/_custom.sh` using the same erb-syntax,
-  useful if you want some personal configuration in your instance.
+* Custom scripts (scripts only used in your instance) must live under
+  `scripts/custom` and sourced from `scripts/custom/provision.sh`.
+* Custom config files (files only used in your instance) must live
+  under `config/custom`.
 
 ## Provision environment ##
 
 When writing a provisioner script you can access a global *env*
-variable that may contain useful information for you to use.  For
-example, the `shell.sh` provisioner uses the `env[:shell_profile]`
-variable to know what shell configuration file the user of the guest
-machine is using (.bashrc, .bash_profile, .zshrc, ...).
+variable that may contain useful information for you to use.
+
+## Example of custom provisioning and config ##
+
+Let's say you want to enhace your instance with zsh and oh-my-zsh:
+First create a `scripts/custom/provision.sh` with:
+```sh
+apt-install-if-needed zsh
+cat /etc/passwd | grep $USER | cut -d':' -f7 | grep -q zsh || sudo usermod -s $(which zsh) vagrant
+if [ ! -e ~/.oh-my-zsh ]; then
+    git clone http://install.ohmyz.sh ~/.oh-my-zsh
+fi
+```
+
+Then create a `config/custom/zshrc` with:
+```sh
+source ~/.virtualenvwrapper-conf
+source ~/.session-conf
+
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+ZSH_THEME="kphoen"
+
+plugins=(git python)
+
+source $ZSH/oh-my-zsh.sh
+```
+
+And finally re-provision your instance.
 
 [vbox]: https://www.virtualbox.org/wiki/Downloads "VirtualBox downloads"
 [vmw]: https://www.virtualbox.org/wiki/Downloads "VMware website"

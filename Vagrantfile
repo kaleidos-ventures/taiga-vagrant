@@ -10,9 +10,7 @@ settings = {
     guest: "/home/vagrant/data"
   },
   forwarded_ports: [{host: 8000, guest: 8000}, {host: 9001, guest: 9001}],
-  provision_env: {
-    shell_profile: ".profile"
-  }
+  provision_env: {}
 }
 
 # Look for a Vagrantfile.local to load
@@ -20,6 +18,8 @@ local_settings = "#{__FILE__}.local"
 if File.exists?(local_settings)
   eval File.read(local_settings)
 end
+
+ROOT_PATH = File.dirname(__FILE__)
 
 VAGRANTFILE_API_VERSION = "2"
 
@@ -75,20 +75,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # information on available options.
 
   # Provisioning
-  config.vm.provision "file" do |file|
-    file.source = "config/virtualenvwrapper-conf"
-    file.destination = ".virtualenvwrapper-conf"
-  end
+  files = []
+  Dir.glob("config/*") {|entry| files << entry if File.file?(entry)}
+  Dir.glob("config/custom/*") {|entry| files << entry if File.file?(entry)}
 
-  config.vm.provision "file" do |file|
-    file.source = "config/session-conf"
-    file.destination = ".session-conf"
+  files.each do |file|
+    config.vm.provision "file", :source => file, :destination => ".#{File.basename(file)}"
   end
 
   config.vm.provision "shell" do |shell|
     vagrant_shell_scripts_configure(
       shell,
-      File.join(File.dirname(__FILE__), "scripts"),
+      File.join(ROOT_PATH, "scripts"),
       "provision.sh",
       settings[:provision_env]
     )
