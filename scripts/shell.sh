@@ -1,6 +1,12 @@
 # shell.sh
 
 shellrc=<%= env[:shell_profile] %>
-conf="source .virtualenvwrapper-conf"
+
+confs=(.virtualenvwrapper-conf .session-conf)
+
 touch $shellrc
-grep -q "$conf" $shellrc || echo "$conf" >> $shellrc
+
+for conf in "${confs[@]}"; do
+    line="source ~/$conf"
+    grep -q "$line" $shellrc || echo "$line" >> $shellrc
+done

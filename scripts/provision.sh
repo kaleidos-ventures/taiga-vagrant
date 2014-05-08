@@ -12,6 +12,7 @@
 <%= source 'python.sh' %>
 <%= source 'postgresql.sh' %>
 <%= source 'redis.sh' %>
+<%= source 'tmux.sh' %>
 <%= source 'node.sh' %>
 <%= source 'repos.sh' %>
 <%= source 'shell.sh' %>

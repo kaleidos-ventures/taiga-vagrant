@@ -11,7 +11,7 @@ settings = {
   },
   forwarded_ports: [{host: 8000, guest: 8000}, {host: 9001, guest: 9001}],
   provision_env: {
-    shell_profile: ".bash_profile"
+    shell_profile: ".profile"
   }
 }
 
@@ -78,6 +78,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "file" do |file|
     file.source = "config/virtualenvwrapper-conf"
     file.destination = ".virtualenvwrapper-conf"
+  end
+
+  config.vm.provision "file" do |file|
+    file.source = "config/session-conf"
+    file.destination = ".session-conf"
   end
 
   config.vm.provision "shell" do |shell|
