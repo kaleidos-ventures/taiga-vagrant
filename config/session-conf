@@ -2,8 +2,8 @@
 # session-conf
 
 function taiga-runserver {
-    local session=taiga
-    local state=$(tmux ls 2>/dev/null)
+    session=taiga
+    state=$(tmux ls 2>/dev/null)
     if $(echo $state | grep -q "$session"); then
         if $(echo $state | grep -qv "(attached)"); then
             tmux attach -t $session
