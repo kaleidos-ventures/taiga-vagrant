@@ -13,3 +13,6 @@
 
 !config
 !config/*
+
+!data
+!data/*
