@@ -17,7 +17,7 @@ workon taiga
 
 cd data/taiga-back
 
-pip install -r requirements.txt
+pip install -r requirements-devel.txt
 
 sh ./install.sh
 
