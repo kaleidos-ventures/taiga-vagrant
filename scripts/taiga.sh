@@ -19,6 +19,6 @@ cd data/taiga-back
 
 pip install -r requirements-devel.txt
 
-sh ./install.sh
+sh ./regenerate.sh
 
 cd
