@@ -20,5 +20,6 @@ cd data/taiga-back
 pip install -r requirements-devel.txt
 
 sh ./regenerate.sh
+cat ./sql/tags.sql | psql taiga
 
 cd
