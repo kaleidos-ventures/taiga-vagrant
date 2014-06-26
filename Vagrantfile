@@ -9,7 +9,9 @@ settings = {
     host: "./data",
     guest: "/home/vagrant/data"
   },
-  forwarded_ports: [{host: 8000, guest: 8000}, {host: 9001, guest: 9001}],
+  forwarded_ports: [{host: 8000, guest: 8000},
+                    {host: 8001, guest: 15672},
+                    {host: 9001, guest: 9001}],
   provision_env: {}
 }
 
@@ -58,21 +60,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder settings[:synced_folder][:host],
                           settings[:synced_folder][:guest]
-
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Don't boot with headless mode
-  #   vb.gui = true
-  #
-  #   # Use VBoxManage to customize the VM. For example to change memory:
-  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  # end
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
 
   # Provisioning
   files = []
