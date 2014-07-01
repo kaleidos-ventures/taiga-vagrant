@@ -1,5 +1,8 @@
 # taiga.sh
 
+# setup image processing support
+apt-install-if-needed libjpeg-dev libfreetype6-dev zlib1g-dev
+
 # setup taiga-front
 cd data/taiga-front
 
