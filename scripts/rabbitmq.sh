@@ -26,8 +26,8 @@ function rabbit-activate-plugin {
     plugin=$1
     if ! grep -q "$plugin" /etc/rabbitmq/enabled_plugins; then
         sudo rabbitmq-plugins enable "$plugin"
-        sudo /etc/init.d/rabbitmq stop
+        sudo /etc/init.d/rabbitmq-server stop
         sudo rabbitmqctl stop
-        sudo /etc/init.d/rabbitmq start
+        sudo /etc/init.d/rabbitmq-server start
     fi
 }
