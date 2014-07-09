@@ -20,7 +20,7 @@ function taiga-runserver {
 
 function taiga-runserver-front {
     workon taiga
-    cd ~/data/taiga-front
+    cd ~/data/taiga-layout
     gulp
 }
 

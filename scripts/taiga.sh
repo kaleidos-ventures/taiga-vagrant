@@ -3,12 +3,13 @@
 # setup image processing support
 apt-install-if-needed libjpeg-dev libfreetype6-dev zlib1g-dev
 
-# setup taiga-front
-cd data/taiga-front
+# setup taiga-layout
+cd data/taiga-layout
 
+gem-install-if-needed sass
 npm-install-if-needed gulp bower
 
-npm install
+sudo npm install
 bower install
 
 cd
