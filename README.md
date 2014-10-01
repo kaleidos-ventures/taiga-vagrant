@@ -3,7 +3,9 @@
 ## Installation
 
 ```sh
-curl https://raw.githubusercontent.com/taigaio/taiga-vagrant/master/install.sh | sh
+git clone https://github.com/taigaio/taiga-vagrant.git
+cd taiga-vagrant
+vagrant up
 ```
 
 ## Usage
