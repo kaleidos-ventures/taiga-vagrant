@@ -15,6 +15,7 @@
 <%= source 'supervisor.sh' %>
 <%= source 'rabbitmq.sh' %>
 <%= source 'tmux.sh' %>
+<%= source 'gem.sh' %>
 <%= source 'node.sh' %>
 <%= source 'repos.sh' %>
 
