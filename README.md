@@ -1,5 +1,8 @@
 # Vagrantfile for Taiga
 
+NOTICE: this is a major refactor of taiga-vagrant, and it now uses taiga-scripts
+as provisioning scripts. If you prefer the old version, see the taiga-vagrant-old repository.
+
 ## Installation
 
 ```sh
@@ -8,20 +11,27 @@ cd taiga-vagrant
 vagrant up
 ```
 
-## Usage
+##  Usage
 
-After installing you can boot the website using:
+After installing, the taiga service is now up and running, and you can access it going
+with your browser to: `http://localhost:8000`.
+
+## Development Usage
+
+If you are developer and you want run it using devserver instead of nginx for serving everything,
+enters to the virtual machine using ssh:
 
 ```sh
 vagrant ssh
 ```
 
-To launch taiga-front and taiga-back http servers:
+To launch taiga-front and taiga-back http devservers:
 ```sh
 taiga-runserver
 ```
 
 That command will:
+* Stops gunicorn service.
 * Create a tmux session named **taiga**.
 * Create a tmux window named **servers** in that session.
 * Split that window.
