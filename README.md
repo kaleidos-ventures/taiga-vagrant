@@ -16,6 +16,8 @@ vagrant up
 After installing, the taiga service is now up and running, and you can access it going
 with your browser to: `http://localhost:8000`.
 
+Credentials: admin/123123
+
 ## Development Usage
 
 If you are developer and you want run it using devserver instead of nginx for serving everything,
