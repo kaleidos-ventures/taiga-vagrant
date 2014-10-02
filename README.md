@@ -1,7 +1,7 @@
 # Vagrantfile for Taiga
 
 NOTICE: this is a major refactor of taiga-vagrant, and it now uses taiga-scripts
-as provisioning scripts. If you prefer the old version, see the taiga-vagrant-old repository.
+as provisioning scripts. If you prefer the old version, go to `old` tag.
 
 ## Installation
 
