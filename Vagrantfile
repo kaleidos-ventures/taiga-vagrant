@@ -61,14 +61,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                           settings[:synced_folder][:guest]
 
   # Provisioning
-  files = []
-  Dir.glob("config/*") {|entry| files << entry if File.file?(entry)}
-  Dir.glob("config/custom/*") {|entry| files << entry if File.file?(entry)}
-
-  files.each do |file|
-    config.vm.provision "file", :source => file, :destination => ".#{File.basename(file)}"
-  end
-
   config.vm.provision "shell" do |shell|
     vagrant_shell_scripts_configure(
       shell,
