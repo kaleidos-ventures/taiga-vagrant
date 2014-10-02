@@ -11,7 +11,7 @@ settings = {
   },
   forwarded_ports: [{host: 8000, guest: 8000},
                     {host: 8001, guest: 15672},
-                    {host: 9001, guest: 8080}],
+                    {host: 9001, guest: 9001}],
   provision_env: {}
 }
 
