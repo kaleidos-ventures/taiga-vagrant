@@ -1,3 +1,0 @@
-#!/bin/bash
-
-vagrant ssh-config | sed s/default/taiga-vagrant/

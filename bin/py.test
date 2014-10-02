@@ -1,8 +1,0 @@
-#!/bin/bash
-
-ssh taiga-vagrant -t <<EOF
-source ~/.virtualenvwrapper-conf
-workon taiga
-cd ~/data/taiga-back
-py.test $@
-EOF
