@@ -1,25 +1,14 @@
-#!/bin/bash
-#
-# provision.sh
-#
-# This file is specified in Vagrantfile and is loaded by Vagrant as the primary
-# provisioning script whenever the commands `vagrant up`, `vagrant provision`,
-# or `vagrant reload` are used. It provides all of the default packages and
-# configurations included with Varying Vagrant Vagrants.
+sudo apt-get -y update
+sudo apt-get -y install git bash
 
-<%= source 'utils.sh' %>
-<%= source 'build-essential.sh' %>
-<%= source 'python.sh' %>
-<%= source 'postgresql.sh' %>
-<%= source 'redis.sh' %>
-<%= source 'supervisor.sh' %>
-<%= source 'rabbitmq.sh' %>
-<%= source 'tmux.sh' %>
-<%= source 'gem.sh' %>
-<%= source 'node.sh' %>
-<%= source 'repos.sh' %>
+git clone https://github.com/taigaio/taiga-scripts.git
+cd taiga-scripts
+git checkout improvements
 
-<%= source 'taiga.sh' %>
+mkdir -p ~/.setup
+cat > ~/.setup/data.sh <<EOF
+scheme="http"
+hostname="localhost:8000"
+EOF
 
-# Custom provisioning for your installation
-<%= source 'custom/provision.sh' %>
+bash setup-server.sh
