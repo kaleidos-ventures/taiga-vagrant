@@ -59,3 +59,11 @@ Please, take a look at the [wiki](https://github.com/taigaio/taiga-vagrant/wiki)
 [vbox]: https://www.virtualbox.org/wiki/Downloads "VirtualBox downloads"
 [vmw]: https://www.virtualbox.org/wiki/Downloads "VMware website"
 [vagrant]: http://downloads.vagrantup.com/ "Vagrant downloads"
+
+
+## Community ##
+
+[Taiga has a mailing list](http://groups.google.com/d/forum/taigaio). Feel free to join it and ask any questions you may have.
+
+To subscribe for announcements of releases, important changes and so on, please follow [@taigaio](https://twitter.com/taigaio) on Twitter.
+
