@@ -2,31 +2,16 @@
 # vi: set ft=ruby :
 require "./source.rb"
 
-settings = {
-    box: "trusty64",
-    box_url: "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box",
-  synced_folder: {
-    host: "./data",
-    guest: "/home/vagrant/data"
-  },
-  forwarded_ports: [{host: 8000, guest: 8000},
-                    {host: 9001, guest: 9001}],
-  provision_env: {}
-}
-
-# Look for a Vagrantfile.local to load
-local_settings = "#{__FILE__}.local"
-if File.exists?(local_settings)
-  eval File.read(local_settings)
-end
-
 ROOT_PATH = File.dirname(__FILE__)
 
 VAGRANTFILE_API_VERSION = "2"
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = settings[:box]
-  config.vm.box_url = settings[:box_url]
+def configure_extra(config)
+end
+
+def configure(config)
+  config.vm.box = "trusty64"
+  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -36,9 +21,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  for port_pair in settings[:forwarded_ports] do
-    config.vm.network :forwarded_port, host: port_pair[:host], guest: port_pair[:guest]
-  end
+  config.vm.network :forwarded_port, host: 8000, guest: 8000
+  config.vm.network :forwarded_port, host: 9001, guest: 9001
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -57,8 +41,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder settings[:synced_folder][:host],
-                          settings[:synced_folder][:guest]
+  config.vm.synced_folder "./data", "/home/vagrant/data"
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  config.vm.provider "virtualbox" do |vb|
+    # Boot with headless mode
+    vb.gui = false
+
+    host = RbConfig::CONFIG['host_os']
+    cpus = `nproc`.to_i
+    # meminfo shows KB and we need to convert to MB
+    mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+
+    vb.customize ["modifyvm", :id, "--memory", mem]
+    vb.customize ["modifyvm", :id, "--cpus", cpus]
+  end
 
   # Provisioning
   config.vm.provision "shell" do |shell|
@@ -66,7 +64,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shell,
       File.join(ROOT_PATH, "scripts"),
       "provision.sh",
-      settings[:provision_env]
+      {}
     )
   end
+end
+
+# Look for a Vagrantfile.local to load
+local_vagrantfile = "#{__FILE__}.local"
+if File.exists?(local_vagrantfile)
+  eval File.read(local_vagrantfile)
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  configure config
+  configure_extra config
 end
