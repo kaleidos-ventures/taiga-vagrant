@@ -50,9 +50,21 @@ def configure(config)
     vb.gui = false
 
     host = RbConfig::CONFIG['host_os']
-    cpus = `nproc`.to_i
-    # meminfo shows KB and we need to convert to MB
-    mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+
+    # Giving a quarter of system memory to VM and access to all available cpu cores
+    if host =~ /darwin/
+      cpus = `sysctl -n hw.ncpu`.to_i
+      # sysctl returns Bytes, converting to MB...
+      mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+    elsif host =~ /linux/
+      cpus = `nproc`.to_i
+      # meminfo returns KB, converting to MB...
+      mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+    else
+      # hardcoding values for windows...
+      cpus = 2
+      mem = 1024
+    end
 
     vb.customize ["modifyvm", :id, "--memory", mem]
     vb.customize ["modifyvm", :id, "--cpus", cpus]
