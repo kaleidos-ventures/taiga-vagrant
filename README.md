@@ -1,4 +1,4 @@
-# Vagrantfile for Taiga
+# [DEPRECATED] Vagrantfile for Taiga
 
 ## Documentation
 
