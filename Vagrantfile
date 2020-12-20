@@ -57,7 +57,7 @@ def configure(config)
       # sysctl returns Bytes, converting to MB...
       mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
     elsif host =~ /linux/
-      cpus = `nproc`.to_i
+      cpus = `nproc`.to_i / 2
       # meminfo returns KB, converting to MB...
       mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
     else
